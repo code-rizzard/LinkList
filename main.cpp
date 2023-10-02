@@ -2,63 +2,68 @@
 
 using namespace std;
 
-class Node {
+class Node
+{
 public:
     Node *next;
     int data;
 };
 
-
-class HeadNode {
+class HeadNode
+{
 public:
     Node *last;
     Node *head;
 
-
-    HeadNode(int data) {
+    HeadNode(int data)
+    {
         this->head = new Node();
-        this->head->data=data;
+        this->head->data = data;
         this->last = this->head;
         this->head->next = nullptr;
     }
 
-    void insertLast(int data) {
+    void insertLast(int data)
+    {
         Node *temp = new Node();
         temp->data = data;
         temp->next = nullptr;
-
-
 
         this->last->next = temp;
         this->last = temp;
     }
 
-    void removeFirst() {
-        if(this->head == nullptr) {
+    void removeFirst()
+    {
+        if (this->head == nullptr)
+        {
             cout << "Nothing to remove";
             return;
         }
 
-        if(this->last == this->head) {
+        if (this->last == this->head)
+        {
             delete this->head;
             this->head = nullptr;
             this->last = nullptr;
             return;
         }
 
-        Node *temp=head;
-        this->head=this->head->next;
+        Node *temp = head;
+        this->head = this->head->next;
         delete temp;
     }
 
-
-    void removeLast() {
-        if(this->head == nullptr) {
+    void removeLast()
+    {
+        if (this->head == nullptr)
+        {
             cout << "Nothing to remove";
             return;
         }
 
-        if(this->last == this->head) {
+        if (this->last == this->head)
+        {
 
             delete this->head;
             this->head = nullptr;
@@ -66,24 +71,31 @@ public:
             return;
         }
 
-
-
+        Node *temp = this->head;
+        while (temp->next != this->last)
+        {
+            temp = temp->next;
+        }
+        delete this->last;
+        this->last = temp;
+        this->last->next = nullptr;
     }
 
-    void showItems() {
+    void showItems()
+    {
         Node *temp = this->head;
-        if(this->head == nullptr) {
+        if (this->head == nullptr)
+        {
             cout << "empty";
         }
-        do {
+        do
+        {
             cout << temp->data;
             temp = temp->next;
-            if(temp != nullptr)
+            if (temp != nullptr)
                 cout << " -> ";
-        }while(temp != nullptr);
-
+        } while (temp != nullptr);
     }
-
 };
 
 int main()
@@ -92,7 +104,7 @@ int main()
     n->insertLast(20);
     n->insertLast(30);
     n->removeLast();
-    //bool a  = (n->head->next) == nullptr;
+    // bool a  = (n->head->next) == nullptr;
     cout << "DATA ";
     n->showItems();
 
