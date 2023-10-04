@@ -9,104 +9,126 @@ public:
     int data;
 };
 
-class HeadNode
+void insertLast(int data, Node *&head, Node *&last)
 {
-public:
-    Node *last;
-    Node *head;
 
-    HeadNode(int data)
+    if (head == nullptr)
     {
-        this->head = new Node();
-        this->head->data = data;
-        this->last = this->head;
-        this->head->next = nullptr;
+        head = new Node();
+        head->data = data;
+        head->next = nullptr;
+        last = head;
+        return;
     }
 
-    void insertLast(int data)
-    {
-        Node *temp = new Node();
-        temp->data = data;
-        temp->next = nullptr;
+    Node *temp = new Node();
+    temp->data = data;
+    temp->next = nullptr;
 
-        this->last->next = temp;
-        this->last = temp;
+    last->next = temp;
+    last = temp;
+}
+
+void removeFirst(Node *&head, Node *&last)
+{
+    if (head == nullptr)
+    {
+        cout << "Nothing to remove";
+        return;
     }
 
-    void removeFirst()
+    if (last == head)
     {
-        if (this->head == nullptr)
-        {
-            cout << "Nothing to remove";
-            return;
-        }
-
-        if (this->last == this->head)
-        {
-            delete this->head;
-            this->head = nullptr;
-            this->last = nullptr;
-            return;
-        }
-
-        Node *temp = head;
-        this->head = this->head->next;
-        delete temp;
+        delete head;
+        head = nullptr;
+        last = nullptr;
+        return;
     }
 
-    void removeLast()
+    Node *temp = head;
+    head = head->next;
+    delete temp;
+}
+
+void removeLast(Node *&head, Node *&last)
+{
+    if (head == nullptr)
     {
-        if (this->head == nullptr)
-        {
-            cout << "Nothing to remove";
-            return;
-        }
-
-        if (this->last == this->head)
-        {
-
-            delete this->head;
-            this->head = nullptr;
-            this->last = nullptr;
-            return;
-        }
-
-        Node *temp = this->head;
-        while (temp->next != this->last)
-        {
-            temp = temp->next;
-        }
-        delete this->last;
-        this->last = temp;
-        this->last->next = nullptr;
+        cout << "Nothing to remove";
+        return;
     }
 
-    void showItems()
+    if (last == head)
     {
-        Node *temp = this->head;
-        if (this->head == nullptr)
-        {
-            cout << "empty";
-        }
-        do
-        {
-            cout << temp->data;
-            temp = temp->next;
-            if (temp != nullptr)
-                cout << " -> ";
-        } while (temp != nullptr);
+
+        delete head;
+        head = nullptr;
+        last = nullptr;
+        return;
     }
-};
+
+    Node *temp = head;
+    while (temp->next != last)
+    {
+        temp = temp->next;
+    }
+    delete last;
+    last = temp;
+    last->next = nullptr;
+}
+
+void showItems(Node *head)
+{
+    Node *temp = head;
+    cout << "Linked List: ";
+    if (head == nullptr)
+    {
+        cout << "empty";
+    }
+    do
+    {
+        cout << temp->data;
+        temp = temp->next;
+        if (temp != nullptr)
+            cout << " -> ";
+    } while (temp != nullptr);
+    cout << endl;
+}
 
 int main()
 {
-    HeadNode *n = new HeadNode(10);
-    n->insertLast(20);
-    n->insertLast(30);
-    n->removeLast();
-    // bool a  = (n->head->next) == nullptr;
-    cout << "DATA ";
-    n->showItems();
+    Node *head = nullptr;
+    Node *last = nullptr;
+
+    cout << "Linked List is empty." << endl;
+    bool loop = true;
+    do
+    {
+        int action;
+        cout << "1. Insert \n2. Delete \n3. Show All \n0. Exit \n";
+        cin >> action;
+        switch (action)
+        {
+        case 1:
+            int data;
+            cout << "Enteasdfr data: ";
+            cin >> data;
+            insertLast(data, head, last);
+            showItems(head);
+            break;
+        case 2:
+            break;
+        case 3:
+            showItems(head);
+            break;
+        case 0:
+            loop = false;
+            break;
+        default:
+            break;
+        }
+
+    } while (loop);
 
     return 0;
 }
