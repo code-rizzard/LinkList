@@ -58,7 +58,10 @@ void insertAt(int data, int position, Node *&head, Node *&last)
     } while (node != nullptr);
     if ((position - currentPos) > 1)
     {
-        cout << "Position is far too large.";
+        cout << endl
+             << "Position is far too large." << endl;
+        system("pause");
+        return;
     }
     else
     {
@@ -185,7 +188,7 @@ void showItems(Node *head)
 {
 
     cout << endl
-         << "Linked List: ";
+         << "[Linked List: ";
     if (head == nullptr)
     {
         cout << "(empty)";
@@ -200,7 +203,7 @@ void showItems(Node *head)
         if (temp != nullptr)
             cout << " -> ";
     } while (temp != nullptr);
-    cout << endl;
+    cout << "]" << endl;
 }
 
 int main()
@@ -213,7 +216,7 @@ int main()
     do
     {
         int action;
-        cout << "\n1. Insert \n2. Delete \n0. Exit \n\nInput: ";
+        cout << "\n1. Insert \n2. Delete \n0. Exit \n\nAction: ";
         cin >> action;
         switch (action)
         {
@@ -256,7 +259,7 @@ int main()
         default:
             break;
         }
-
+        cout << "==================" << endl;
     } while (loop);
 
     return 0;
