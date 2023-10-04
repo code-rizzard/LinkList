@@ -175,13 +175,8 @@ void removeAt(int position, Node *&head, Node *&last)
             currentPos++;
     } while (currentNode != nullptr);
     Node *temp = head;
-    while (temp->next != last)
-    {
-        temp = temp->next;
-    }
-    delete last;
-    last = temp;
-    last->next = nullptr;
+    cout << "Invalid position.";
+    system("pause");
 }
 
 void showItems(Node *head)
